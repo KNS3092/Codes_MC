@@ -11,13 +11,13 @@ s = 2*ip-1; % BPSK modulation 0 -> -1; 1 -> 0
  
 Eb_N0_dB = [-3:35]; % multiple Eb/N0 values
 
-for ii = 1:length(Eb_N0_dB)
+for i = 1:length(Eb_N0_dB)
    
    n = 1/sqrt(2)*[randn(1,N) + j*randn(1,N)]; % white gaussian noise, 0dB variance 
    h = 1/sqrt(2)*[randn(1,N) + j*randn(1,N)]; % Rayleigh channel
    
    % Channel and noise Noise addition
-   y = h.*s + 10^(-Eb_N0_dB(ii)/20)*n; 
+   y = h.*s + 10^(-Eb_N0_dB(i)/20)*n; 
 
    % equalization
    yHat = y./h;
@@ -26,7 +26,7 @@ for ii = 1:length(Eb_N0_dB)
    ipHat = real(yHat)>0;
 
    % counting the errors
-   nErr(ii) = size(find([ip- ipHat]),2);
+   nErr(i) = size(find([ip- ipHat]),2);
 
 end
 
